@@ -1,0 +1,48 @@
+<h1>Hello <%=@user.first_name%>! </h1> <a href="/sessions/<%= @user.id%>" data-method='delete'>Logout</a></h1>
+
+<p>All the songs in our hub</p>
+<table>
+	<thead>
+		<tr>
+			<th>Artist</th>
+			<th>Title</th>
+			<th>No of Times Song has been added</th>
+			<th>Add to Playlist</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @songs.each do |song| %>
+			<tr>
+				<td><%= song.artist %></td>
+				<td><%= song.title %></td>
+				<td><%= song.adds.count %></td>
+				<td>
+					<form action='/adds/create' method='post'>
+						<input type='submit' value='Add'>
+						<input type='hidden' name='song_id' value='<%= song.id %>'>
+						<input type='hidden' name='authenticity_token' value='<%= form_authenticity_token%>'>
+					</form>
+				</td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+<% if flash[:notice] %>
+	<p class='success'><%= flash[:notice]%></p>
+<% end %>
+
+<% if flash[:errors]%>
+	<% flash[:errors].each do |error| %>
+		<p class='error'><%= error%></p>
+	<% end %>
+<% end %>
+
+<form action='/songs/create' method='post'>
+	<p> Title<input type='text' name='song[title]'></p>
+	<p> Artist<input type='text' name='song[artist]'></p>
+	<p> <input type='submit' value='Add song'></p>
+	<input type='hidden' name='authenticity_token' value='<%= form_authenticity_token%>'>
+
+
+</form>
+
