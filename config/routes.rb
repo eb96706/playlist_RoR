@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   get 'songs/new'
 
-  get 'songs/show'
+  #get 'songs/show'
 
   get 'users/index'
 
@@ -25,13 +25,15 @@ Rails.application.routes.draw do
 
   # USERS
   post '/users/create'
+  get '/users/:id'=>'users#show'
 
   # SESSIONS
   post '/sessions/create' 
   delete '/sessions/:id' =>'sessions#destroy'
 
   #SONGS
-  post 'songs/create'=>'songs#create'
+  post 'songs/create/'=>'songs#create'
+  get 'songs/:id'=>'songs#show'
 
   #ADDS
   post 'adds/create'=>'adds#create'

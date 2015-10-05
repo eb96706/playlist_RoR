@@ -1,2 +1,23 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<%= @user.first_name%> playlist
+<a href="/songs/index">Dashboard</a>
+
+<table>
+	<thead>
+		<tr>
+			<th>Artist </th>
+			<th>Title</th>
+			<th>Times added</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<% @user.adds.group('song_id').each do |add| %>
+		<tr>
+			<td><%= add.song.artist%></td>
+			<td><%= add.song.title%></td>
+			<td><%=add.song.adds.where(user: @user).count%></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+

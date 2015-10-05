@@ -1,2 +1,19 @@
-<h1>Songs#show</h1>
-<p>Find me in app/views/songs/show.html.erb</p>
+<h1>Others who added <%= @song.artist%> | <%= @song.title%></h1>
+	<table>
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Times added</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @song.adds.group('user_id').each do |add|%>
+			<tr>
+				<td><a href="/users/<%=add.user.id%>"><%= add.user.first_name %></a></td>
+				<td><%= add.user.adds.where(song: @song).count %></td>
+			</tr>
+			<% end %>
+		</tbody>
+	</table>
+
+
